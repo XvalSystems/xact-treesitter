@@ -2,260 +2,225 @@
 // @ts-check
 
 module.exports = grammar({
-  name: 'xact',
+  name: "xact",
 
-  extras: $ => [
-    /\s/,
-    $.line_comment,
-    $.block_comment,
-  ],
-
-  word: $ => $.identifier,
-
-  conflicts: $ => [],
-
-  externals: $ => [],
-
-  precedences: $ => [
-    [
-      'member',
-      'index',
-      'unary',
-      'power',
-      'multiplicative',
-      'additive',
-      'comparison',
-      'logical_and',
-      'logical_or',
-    ],
-  ],
+  extras: ($) => [/\s/, $.line_comment, $.block_comment],
 
   rules: {
-    source_file: $ => repeat($._declaration),
+    source_file: ($) => repeat($._top_level_statement),
 
-    _declaration: $ => choice(
-      $.config_declaration,
-      $.input_declaration,
-      $.table_declaration,
-      $.vtable_declaration,
-    ),
+    _top_level_statement: ($) =>
+      choice($.config_block, $.input_block, $.table_block, $.vtable_block),
 
-    // ── Top-level declarations ──────────────────────────────────
+    // ─── Config ────────────────────────────────────────────────────
+    config_block: ($) =>
+      seq("config", "{", repeat($.config_property), "}"),
 
-    config_declaration: $ => seq(
-      'config',
-      '{',
-      repeat($.simple_property),
-      '}',
-    ),
+    config_property: ($) =>
+      seq($.config_key, ":", $._config_value, ";"),
 
-    input_declaration: $ => seq(
-      'input',
-      field('name', $.identifier),
-      field('body', $.declaration_body),
-    ),
-
-    table_declaration: $ => seq(
-      'table',
-      field('name', $.identifier),
-      field('body', $.declaration_body),
-    ),
-
-    vtable_declaration: $ => seq(
-      'vtable',
-      field('name', $.identifier),
-      field('body', $.declaration_body),
-    ),
-
-    declaration_body: $ => seq('{', repeat($._property), '}'),
-
-    // ── Properties ──────────────────────────────────────────────
-
-    _property: $ => choice(
-      $.columns_block,
-      $.vtable_block,
-      $.simple_property,
-    ),
-
-    columns_block: $ => seq(
-      'columns',
-      ':',
-      '{',
-      repeat($.column_definition),
-      '}',
-    ),
-
-    vtable_block: $ => seq(
-      'vtable',
-      ':',
-      '{',
-      repeat($.simple_property),
-      '}',
-    ),
-
-    simple_property: $ => seq(
-      field('key', $.identifier),
-      ':',
-      field('value', $._expression),
-      ';',
-    ),
-
-    // ── Column definitions ──────────────────────────────────────
-
-    column_definition: $ => choice(
-      // name <type> : expr ;
-      seq(
-        field('name', $._column_name),
-        field('type', $.type_annotation),
-        ':',
-        field('value', $._expression),
-        ';',
+    config_key: (_) =>
+      choice(
+        "out_dir",
+        "out_ft",
+        "audit",
+        "write_all_vtables",
+        "write_all_inputs",
+        "input_dir",
+        "out_name",
       ),
-      // name <type> ;
+
+    _config_value: ($) => choice($.string, $.boolean, $.number),
+
+    // ─── Input ─────────────────────────────────────────────────────
+    input_block: ($) =>
+      seq("input", $.identifier, "{", repeat($._input_property), "}"),
+
+    _input_property: ($) =>
+      choice($.type_property, $.columns_block),
+
+    type_property: ($) => seq("type", ":", $.string, ";"),
+
+    // ─── Table / VTable ────────────────────────────────────────────
+    table_block: ($) =>
+      seq("table", $.identifier, "{", repeat($._table_property), "}"),
+
+    vtable_block: ($) =>
+      seq("vtable", $.identifier, "{", repeat($._table_property), "}"),
+
+    _table_property: ($) =>
+      choice($.nrows_property, $.vtable_property, $.columns_block, $.params_block),
+
+    nrows_property: ($) =>
+      seq("nrows", ":", choice($.number, $.identifier), ";"),
+
+    vtable_property: ($) =>
+      seq("vtable", ":", "{", "source", ":", $.identifier, ";", "}"),
+
+    params_block: ($) =>
+      seq("params", ":", "{", repeat($.param_definition), "}"),
+
+    param_definition: ($) =>
       seq(
-        field('name', $._column_name),
-        field('type', $.type_annotation),
-        ';',
+        $.identifier,
+        optional($.type_annotation),
+        ";",
       ),
-      // name : expr ;
+
+    // ─── Columns ───────────────────────────────────────────────────
+    columns_block: ($) =>
+      seq("columns", ":", "{", repeat($.column_definition), "}"),
+
+    column_definition: ($) =>
       seq(
-        field('name', $._column_name),
-        ':',
-        field('value', $._expression),
-        ';',
+        $._column_name,
+        optional($.type_annotation),
+        optional(seq(":", $._expression)),
+        ";",
       ),
-    ),
 
-    _column_name: $ => choice(
-      $.identifier,
-      $.nid,
-      $.string,
-    ),
+    _column_name: ($) => choice($.identifier, $.nid, $.string),
 
-    type_annotation: $ => choice(
-      seq('<', $.type_name, $.string, '>'),
-      seq('<', $.type_name, '>'),
-    ),
+    // ─── Type annotations ──────────────────────────────────────────
+    type_annotation: ($) =>
+      seq(
+        "<",
+        $.type_name,
+        optional($.informat_string),
+        ">",
+      ),
 
-    type_name: $ => choice('int', 'float', 'string', 'date', 'bool'),
+    type_name: (_) => choice("int", "float", "string", "date", "bool"),
 
-    // ── Expressions ─────────────────────────────────────────────
+    informat_string: ($) => $.string,
 
-    _expression: $ => choice(
-      $.binary_expression,
-      $.unary_expression,
-      $.dollar_function,
-      $.index_expression,
-      $.member_expression,
-      $.parenthesized_expression,
-      $.float,
-      $.integer,
-      $.string,
-      $.nid,
-      $.boolean,
-      $.self,
-      $.slice,
-      $.identifier,
-    ),
+    // ─── Expressions ───────────────────────────────────────────────
+    _expression: ($) =>
+      choice(
+        $.binary_expression,
+        $.unary_expression,
+        $.parenthesized_expression,
+        $.dollar_function,
+        $.column_reference,
+        $.self_reference,
+        $.number,
+        $.string,
+        $.boolean,
+        $.time_variable,
+        $.identifier,
+      ),
 
-    parenthesized_expression: $ => seq('(', $._expression, ')'),
+    parenthesized_expression: ($) => seq("(", $._expression, ")"),
 
-    binary_expression: $ => choice(
-      prec.left('additive', seq($._expression, '+', $._expression)),
-      prec.left('additive', seq($._expression, '-', $._expression)),
-      prec.left('multiplicative', seq($._expression, '*', $._expression)),
-      prec.left('multiplicative', seq($._expression, '/', $._expression)),
-      prec.right('power', seq($._expression, '^', $._expression)),
-      prec.left('comparison', seq($._expression, '==', $._expression)),
-      prec.left('comparison', seq($._expression, '!=', $._expression)),
-      prec.left('comparison', seq($._expression, '<', $._expression)),
-      prec.left('comparison', seq($._expression, '>', $._expression)),
-      prec.left('comparison', seq($._expression, '<=', $._expression)),
-      prec.left('comparison', seq($._expression, '>=', $._expression)),
-      prec.left('logical_and', seq($._expression, '&&', $._expression)),
-      prec.left('logical_or', seq($._expression, '||', $._expression)),
-    ),
+    binary_expression: ($) =>
+      choice(
+        prec.left(4, seq($._expression, "+", $._expression)),
+        prec.left(4, seq($._expression, "-", $._expression)),
+        prec.left(5, seq($._expression, "*", $._expression)),
+        prec.left(5, seq($._expression, "/", $._expression)),
+        prec.right(6, seq($._expression, "^", $._expression)),
+        prec.left(3, seq($._expression, "==", $._expression)),
+        prec.left(3, seq($._expression, "!=", $._expression)),
+        prec.left(3, seq($._expression, "<", $._expression)),
+        prec.left(3, seq($._expression, ">", $._expression)),
+        prec.left(3, seq($._expression, "<=", $._expression)),
+        prec.left(3, seq($._expression, ">=", $._expression)),
+      ),
 
-    unary_expression: $ => prec('unary', seq(
-      choice('-', '!'),
-      $._expression,
-    )),
+    unary_expression: ($) => prec(7, seq("-", $._expression)),
 
-    dollar_function: $ => seq(
-      '$',
-      field('name', $.identifier),
-      field('arguments', $.argument_list),
-    ),
+    // ─── Dollar functions ──────────────────────────────────────────
+    dollar_function: ($) =>
+      seq(
+        "$",
+        $.identifier,
+        "(",
+        optional($._argument_list),
+        ")",
+      ),
 
-    argument_list: $ => seq(
-      '(',
-      optional(seq($._expression, repeat(seq(',', $._expression)))),
-      ')',
-    ),
+    _argument_list: ($) =>
+      seq($._expression, repeat(seq(",", $._expression)), optional(",")),
 
-    index_expression: $ => prec('index', seq(
-      $._expression,
-      '[',
-      seq($._expression, repeat(seq(',', $._expression))),
-      ']',
-    )),
+    // ─── References ────────────────────────────────────────────────
+    // table.column[index] or table.subtable.column[index] etc.
+    column_reference: ($) =>
+      seq(
+        $._dotted_name,
+        optional($.index_expression),
+      ),
 
-    member_expression: $ => prec('member', seq(
-      field('object', $._expression),
-      '.',
-      field('property', choice($.identifier, $.nid, $.string)),
-    )),
+    _dotted_name: ($) =>
+      prec.left(
+        8,
+        seq(
+          $._name_component,
+          repeat1(seq(".", $._name_component)),
+        ),
+      ),
 
-    // Slice operator used inside [] e.g. mortality.AGE[:]
-    slice: $ => ':',
+    _name_component: ($) => choice($.identifier, $.nid, $.string),
 
-    // ── Literals ────────────────────────────────────────────────
+    self_reference: ($) =>
+      seq(
+        "self",
+        ".",
+        $._name_component,
+        optional($.index_expression),
+      ),
 
-    integer: $ => token(prec(0, /[0-9]+/)),
+    index_expression: ($) =>
+      seq("[", $._index_args, "]"),
 
-    float: $ => token(prec(1, choice(
-      /[0-9]+\.[0-9]+/,
-      /[0-9]+\.[0-9]*/,
-      /[0-9]*\.[0-9]+/,
-    ))),
+    _index_args: ($) =>
+      seq($._index_value, repeat(seq(",", $._index_value))),
 
-    string: $ => choice(
-      seq('"', optional($.string_content_double), '"'),
-      seq("'", optional($.string_content_single), "'"),
-    ),
+    _index_value: ($) =>
+      choice(
+        $.colon_index,
+        $._expression,
+      ),
 
-    string_content_double: $ => repeat1(choice(
-      token.immediate(prec(0, /[^"\\]+/)),
-      $.escape_sequence,
-    )),
+    colon_index: (_) => ":",
 
-    string_content_single: $ => repeat1(choice(
-      token.immediate(prec(0, /[^'\\]+/)),
-      $.escape_sequence,
-    )),
+    // ─── NID (name identifier: 'some name'n or "some name"n) ─────
+    nid: (_) =>
+      token(
+        seq(
+          choice(
+            seq("'", /[^']*/, "'"),
+            seq('"', /[^"]*/, '"'),
+          ),
+          "n",
+        ),
+      ),
 
-    escape_sequence: $ => token.immediate(/\\./),
+    // ─── Literals ──────────────────────────────────────────────────
+    time_variable: (_) => token(choice(/t[0-9]+/, "t")),
 
-    // Name identifier: "quoted string"n or 'quoted string'n
-    nid: $ => token(prec(2, choice(
-      seq('"', /[^"]*/, '"', 'n'),
-      seq("'", /[^']*/, "'", 'n'),
-    ))),
+    number: (_) =>
+      token(
+        choice(
+          /[0-9]+\.[0-9]*/,
+          /[0-9]*\.[0-9]+/,
+          /[0-9]+/,
+        ),
+      ),
 
-    boolean: $ => choice('true', 'false'),
+    string: (_) =>
+      token(
+        choice(
+          seq('"', /([^"\\]|\\.)*/, '"'),
+          seq("'", /([^'\\]|\\.)*/, "'"),
+        ),
+      ),
 
-    self: $ => 'self',
+    boolean: (_) => choice("true", "false"),
 
-    // ── Comments ────────────────────────────────────────────────
+    identifier: (_) => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
-    line_comment: $ => token(seq('//', /[^\n]*/)),
-
-    block_comment: $ => token(seq('/*', /[^*]*\*+([^/*][^*]*\*+)*/, '/')),
-
-    // ── Identifiers ─────────────────────────────────────────────
-    // Note: time variables (t, t1, t2, ...) are handled as identifiers
-    // and highlighted via predicates in highlights.scm
-
-    identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    // ─── Comments ──────────────────────────────────────────────────
+    line_comment: (_) => token(seq("//", /[^\n]*/)),
+    block_comment: (_) => token(seq("/*", /[^*]*\*+([^/*][^*]*\*+)*/, "/")),
   },
 });

@@ -1,72 +1,5 @@
 [
   {
-    "type": "argument_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "dollar_function",
-          "named": true
-        },
-        {
-          "type": "float",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "index_expression",
-          "named": true
-        },
-        {
-          "type": "integer",
-          "named": true
-        },
-        {
-          "type": "member_expression",
-          "named": true
-        },
-        {
-          "type": "nid",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expression",
-          "named": true
-        },
-        {
-          "type": "self",
-          "named": true
-        },
-        {
-          "type": "slice",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "unary_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "binary_expression",
     "named": true,
     "fields": {},
@@ -83,11 +16,11 @@
           "named": true
         },
         {
-          "type": "dollar_function",
+          "type": "column_reference",
           "named": true
         },
         {
-          "type": "float",
+          "type": "dollar_function",
           "named": true
         },
         {
@@ -95,19 +28,7 @@
           "named": true
         },
         {
-          "type": "index_expression",
-          "named": true
-        },
-        {
-          "type": "integer",
-          "named": true
-        },
-        {
-          "type": "member_expression",
-          "named": true
-        },
-        {
-          "type": "nid",
+          "type": "number",
           "named": true
         },
         {
@@ -115,15 +36,15 @@
           "named": true
         },
         {
-          "type": "self",
-          "named": true
-        },
-        {
-          "type": "slice",
+          "type": "self_reference",
           "named": true
         },
         {
           "type": "string",
+          "named": true
+        },
+        {
+          "type": "time_variable",
           "named": true
         },
         {
@@ -139,99 +60,98 @@
     "fields": {}
   },
   {
+    "type": "colon_index",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "column_definition",
     "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "nid",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          }
-        ]
-      },
-      "type": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "type_annotation",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "binary_expression",
-            "named": true
-          },
-          {
-            "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "dollar_function",
-            "named": true
-          },
-          {
-            "type": "float",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "index_expression",
-            "named": true
-          },
-          {
-            "type": "integer",
-            "named": true
-          },
-          {
-            "type": "member_expression",
-            "named": true
-          },
-          {
-            "type": "nid",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "self",
-            "named": true
-          },
-          {
-            "type": "slice",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "unary_expression",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "column_reference",
+          "named": true
+        },
+        {
+          "type": "dollar_function",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "nid",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "self_reference",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "time_variable",
+          "named": true
+        },
+        {
+          "type": "type_annotation",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "column_reference",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "index_expression",
+          "named": true
+        },
+        {
+          "type": "nid",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -250,7 +170,7 @@
     }
   },
   {
-    "type": "config_declaration",
+    "type": "config_block",
     "named": true,
     "fields": {},
     "children": {
@@ -258,30 +178,39 @@
       "required": false,
       "types": [
         {
-          "type": "simple_property",
+          "type": "config_property",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "declaration_body",
+    "type": "config_key",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "config_property",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "columns_block",
+          "type": "boolean",
           "named": true
         },
         {
-          "type": "simple_property",
+          "type": "config_key",
           "named": true
         },
         {
-          "type": "vtable_block",
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         }
       ]
@@ -289,32 +218,6 @@
   },
   {
     "type": "dollar_function",
-    "named": true,
-    "fields": {
-      "arguments": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "argument_list",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "index_expression",
     "named": true,
     "fields": {},
     "children": {
@@ -330,11 +233,11 @@
           "named": true
         },
         {
-          "type": "dollar_function",
+          "type": "column_reference",
           "named": true
         },
         {
-          "type": "float",
+          "type": "dollar_function",
           "named": true
         },
         {
@@ -342,19 +245,7 @@
           "named": true
         },
         {
-          "type": "index_expression",
-          "named": true
-        },
-        {
-          "type": "integer",
-          "named": true
-        },
-        {
-          "type": "member_expression",
-          "named": true
-        },
-        {
-          "type": "nid",
+          "type": "number",
           "named": true
         },
         {
@@ -362,15 +253,15 @@
           "named": true
         },
         {
-          "type": "self",
-          "named": true
-        },
-        {
-          "type": "slice",
+          "type": "self_reference",
           "named": true
         },
         {
           "type": "string",
+          "named": true
+        },
+        {
+          "type": "time_variable",
           "named": true
         },
         {
@@ -381,115 +272,153 @@
     }
   },
   {
-    "type": "input_declaration",
+    "type": "index_expression",
     "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "declaration_body",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "colon_index",
+          "named": true
+        },
+        {
+          "type": "column_reference",
+          "named": true
+        },
+        {
+          "type": "dollar_function",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expression",
+          "named": true
+        },
+        {
+          "type": "self_reference",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "time_variable",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        }
+      ]
     }
   },
   {
-    "type": "member_expression",
+    "type": "informat_string",
     "named": true,
-    "fields": {
-      "object": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "binary_expression",
-            "named": true
-          },
-          {
-            "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "dollar_function",
-            "named": true
-          },
-          {
-            "type": "float",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "index_expression",
-            "named": true
-          },
-          {
-            "type": "integer",
-            "named": true
-          },
-          {
-            "type": "member_expression",
-            "named": true
-          },
-          {
-            "type": "nid",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "self",
-            "named": true
-          },
-          {
-            "type": "slice",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "unary_expression",
-            "named": true
-          }
-        ]
-      },
-      "property": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "nid",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "input_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "columns_block",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type_property",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "nrows_property",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "param_definition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type_annotation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "params_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "param_definition",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -509,11 +438,11 @@
           "named": true
         },
         {
-          "type": "dollar_function",
+          "type": "column_reference",
           "named": true
         },
         {
-          "type": "float",
+          "type": "dollar_function",
           "named": true
         },
         {
@@ -521,19 +450,7 @@
           "named": true
         },
         {
-          "type": "index_expression",
-          "named": true
-        },
-        {
-          "type": "integer",
-          "named": true
-        },
-        {
-          "type": "member_expression",
-          "named": true
-        },
-        {
-          "type": "nid",
+          "type": "number",
           "named": true
         },
         {
@@ -541,15 +458,15 @@
           "named": true
         },
         {
-          "type": "self",
-          "named": true
-        },
-        {
-          "type": "slice",
+          "type": "self_reference",
           "named": true
         },
         {
           "type": "string",
+          "named": true
+        },
+        {
+          "type": "time_variable",
           "named": true
         },
         {
@@ -560,87 +477,31 @@
     }
   },
   {
-    "type": "simple_property",
+    "type": "self_reference",
     "named": true,
-    "fields": {
-      "key": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "binary_expression",
-            "named": true
-          },
-          {
-            "type": "boolean",
-            "named": true
-          },
-          {
-            "type": "dollar_function",
-            "named": true
-          },
-          {
-            "type": "float",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "index_expression",
-            "named": true
-          },
-          {
-            "type": "integer",
-            "named": true
-          },
-          {
-            "type": "member_expression",
-            "named": true
-          },
-          {
-            "type": "nid",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "self",
-            "named": true
-          },
-          {
-            "type": "slice",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "unary_expression",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "index_expression",
+          "named": true
+        },
+        {
+          "type": "nid",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
     }
-  },
-  {
-    "type": "slice",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "source_file",
@@ -652,97 +513,53 @@
       "required": false,
       "types": [
         {
-          "type": "config_declaration",
+          "type": "config_block",
           "named": true
         },
         {
-          "type": "input_declaration",
+          "type": "input_block",
           "named": true
         },
         {
-          "type": "table_declaration",
+          "type": "table_block",
           "named": true
         },
         {
-          "type": "vtable_declaration",
+          "type": "vtable_block",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "string",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "string_content_double",
-          "named": true
-        },
-        {
-          "type": "string_content_single",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "string_content_double",
+    "type": "table_block",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "escape_sequence",
+          "type": "columns_block",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "nrows_property",
+          "named": true
+        },
+        {
+          "type": "params_block",
+          "named": true
+        },
+        {
+          "type": "vtable_property",
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "string_content_single",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "escape_sequence",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "table_declaration",
-    "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "declaration_body",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -754,7 +571,7 @@
       "required": true,
       "types": [
         {
-          "type": "string",
+          "type": "informat_string",
           "named": true
         },
         {
@@ -768,6 +585,21 @@
     "type": "type_name",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "type_property",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "unary_expression",
@@ -786,11 +618,11 @@
           "named": true
         },
         {
-          "type": "dollar_function",
+          "type": "column_reference",
           "named": true
         },
         {
-          "type": "float",
+          "type": "dollar_function",
           "named": true
         },
         {
@@ -798,19 +630,7 @@
           "named": true
         },
         {
-          "type": "index_expression",
-          "named": true
-        },
-        {
-          "type": "integer",
-          "named": true
-        },
-        {
-          "type": "member_expression",
-          "named": true
-        },
-        {
-          "type": "nid",
+          "type": "number",
           "named": true
         },
         {
@@ -818,15 +638,15 @@
           "named": true
         },
         {
-          "type": "self",
-          "named": true
-        },
-        {
-          "type": "slice",
+          "type": "self_reference",
           "named": true
         },
         {
           "type": "string",
+          "named": true
+        },
+        {
+          "type": "time_variable",
           "named": true
         },
         {
@@ -842,63 +662,52 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "simple_property",
+          "type": "columns_block",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "nrows_property",
+          "named": true
+        },
+        {
+          "type": "params_block",
+          "named": true
+        },
+        {
+          "type": "vtable_property",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "vtable_declaration",
+    "type": "vtable_property",
     "named": true,
-    "fields": {
-      "body": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "declaration_body",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
     }
-  },
-  {
-    "type": "!",
-    "named": false
   },
   {
     "type": "!=",
     "named": false
   },
   {
-    "type": "\"",
-    "named": false
-  },
-  {
     "type": "$",
-    "named": false
-  },
-  {
-    "type": "&&",
-    "named": false
-  },
-  {
-    "type": "'",
     "named": false
   },
   {
@@ -974,6 +783,10 @@
     "named": false
   },
   {
+    "type": "audit",
+    "named": false
+  },
+  {
     "type": "block_comment",
     "named": true,
     "extra": true
@@ -995,20 +808,12 @@
     "named": false
   },
   {
-    "type": "escape_sequence",
-    "named": true
-  },
-  {
     "type": "false",
     "named": false
   },
   {
     "type": "float",
     "named": false
-  },
-  {
-    "type": "float",
-    "named": true
   },
   {
     "type": "identifier",
@@ -1019,12 +824,12 @@
     "named": false
   },
   {
-    "type": "int",
+    "type": "input_dir",
     "named": false
   },
   {
-    "type": "integer",
-    "named": true
+    "type": "int",
+    "named": false
   },
   {
     "type": "line_comment",
@@ -1036,19 +841,59 @@
     "named": true
   },
   {
-    "type": "self",
+    "type": "nrows",
+    "named": false
+  },
+  {
+    "type": "number",
     "named": true
+  },
+  {
+    "type": "out_dir",
+    "named": false
+  },
+  {
+    "type": "out_ft",
+    "named": false
+  },
+  {
+    "type": "out_name",
+    "named": false
+  },
+  {
+    "type": "params",
+    "named": false
+  },
+  {
+    "type": "self",
+    "named": false
+  },
+  {
+    "type": "source",
+    "named": false
   },
   {
     "type": "string",
     "named": false
   },
   {
+    "type": "string",
+    "named": true
+  },
+  {
     "type": "table",
     "named": false
   },
   {
+    "type": "time_variable",
+    "named": true
+  },
+  {
     "type": "true",
+    "named": false
+  },
+  {
+    "type": "type",
     "named": false
   },
   {
@@ -1056,11 +901,15 @@
     "named": false
   },
   {
-    "type": "{",
+    "type": "write_all_inputs",
     "named": false
   },
   {
-    "type": "||",
+    "type": "write_all_vtables",
+    "named": false
+  },
+  {
+    "type": "{",
     "named": false
   },
   {
