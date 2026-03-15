@@ -23,9 +23,9 @@
 (vtable_block "vtable" @keyword)
 
 ; ─── Block names (the identifier after table/vtable/input) ─────────
-(input_block name: (identifier) @type)
-(table_block name: (identifier) @type)
-(vtable_block name: (identifier) @type)
+(input_block (identifier) @type)
+(table_block (identifier) @type)
+(vtable_block (identifier) @type)
 
 ; ─── Config keys ───────────────────────────────────────────────────
 (config_key) @keyword
@@ -56,11 +56,10 @@
 
 ; ─── Column references (dotted names) ──────────────────────────────
 (column_reference
-  (_dotted_name
-    (_name_component) @property))
+    (identifier) @property)
 
 (self_reference
-  (_name_component) @property)
+  (identifier) @property)
 
 ; ─── Operators ─────────────────────────────────────────────────────
 (binary_expression "+" @operator)
@@ -92,9 +91,9 @@
 (param_definition (identifier) @variable)
 
 ; ─── Column definitions ────────────────────────────────────────────
-(column_definition (_column_name (identifier) @variable))
-(column_definition (_column_name (nid) @variable))
-(column_definition (_column_name (string) @variable))
+(column_definition ( (identifier) @variable))
+(column_definition ( (nid) @variable))
+(column_definition ( (string) @variable))
 
 ; ─── Index expression colon ────────────────────────────────────────
 (colon_index) @punctuation.special
