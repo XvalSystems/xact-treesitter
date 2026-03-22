@@ -16,16 +16,18 @@
 ; ─── Booleans ──────────────────────────────────────────────────────
 (boolean) @constant.builtin
 
-; ─── Block keywords: table, vtable, input, config ──────────────────
+; ─── Block keywords: table, vtable, input, config, python ───────────
 (config_block "config" @keyword)
 (input_block "input" @keyword)
 (table_block "table" @keyword)
 (vtable_block "vtable" @keyword)
+(python_block "python" @keyword)
 
-; ─── Block names (the identifier after table/vtable/input) ─────────
+; ─── Block names (the identifier after table/vtable/input/python) ───
 (input_block (identifier) @type)
 (table_block (identifier) @type)
 (vtable_block (identifier) @type)
+(python_block (identifier) @type)
 
 ; ─── Config keys ───────────────────────────────────────────────────
 (config_key) @variable.builtin
@@ -37,6 +39,9 @@
 (params_block "params" @keyword)
 (vtable_property "vtable" @keyword)
 (vtable_property "source" @keyword)
+(python_path_property "python_path" @keyword)
+(source_property "source" @keyword)
+(script_block) @string
 
 ; ─── Type annotations ─────────────────────────────────────────────
 (type_annotation "<" @punctuation.bracket)

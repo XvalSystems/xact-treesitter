@@ -10,7 +10,7 @@ module.exports = grammar({
     source_file: ($) => repeat($._top_level_statement),
 
     _top_level_statement: ($) =>
-      choice($.config_block, $.input_block, $.table_block, $.vtable_block),
+      choice($.config_block, $.input_block, $.table_block, $.vtable_block, $.python_block),
 
     // ─── Config ────────────────────────────────────────────────────
     config_block: ($) =>
@@ -80,6 +80,22 @@ module.exports = grammar({
       ),
 
     _column_name: ($) => choice($.identifier, $.nid, $.string),
+
+    // ─── Python ──────────────────────────────────────────────────────
+    python_block: ($) =>
+      seq("python", $.identifier, "{", repeat($._python_property), "}"),
+
+    _python_property: ($) =>
+      choice($.python_path_property, $.source_property, $.script_block),
+
+    python_path_property: ($) =>
+      seq("python_path", ":", $.string, ";"),
+
+    source_property: ($) =>
+      seq("source", ":", $.string, ";"),
+
+    script_block: (_) =>
+      token(seq("```", /[^`]*(`{1,2}[^`]+)*/, "```")),
 
     // ─── Type annotations ──────────────────────────────────────────
     type_annotation: ($) =>

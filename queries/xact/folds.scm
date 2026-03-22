@@ -4,6 +4,7 @@
 (input_block) @fold
 (table_block) @fold
 (vtable_block) @fold
+(python_block) @fold
 (columns_block) @fold
 (params_block) @fold
 (vtable_property) @fold

@@ -477,6 +477,48 @@
     }
   },
   {
+    "type": "python_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "python_path_property",
+          "named": true
+        },
+        {
+          "type": "script_block",
+          "named": true
+        },
+        {
+          "type": "source_property",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "python_path_property",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "self_reference",
     "named": true,
     "fields": {},
@@ -521,11 +563,30 @@
           "named": true
         },
         {
+          "type": "python_block",
+          "named": true
+        },
+        {
           "type": "table_block",
           "named": true
         },
         {
           "type": "vtable_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "source_property",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
           "named": true
         }
       ]
@@ -863,6 +924,18 @@
   {
     "type": "params",
     "named": false
+  },
+  {
+    "type": "python",
+    "named": false
+  },
+  {
+    "type": "python_path",
+    "named": false
+  },
+  {
+    "type": "script_block",
+    "named": true
   },
   {
     "type": "self",
